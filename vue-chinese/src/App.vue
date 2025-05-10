@@ -14,7 +14,7 @@ import HelloWorld from './components/HelloWorld.vue'
       <div class="flex flex-row items-center justify-between mt-4 space-x-4 text-2xl">
         <div></div>
         <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="40" height="40" />
-        <input type="checkbox" value="caramellatte" class="toggle theme-controller" />
+        <input type="checkbox" value="forest" class="toggle theme-controller" />
       </div>
       <nav class="flex flex-row items-center justify-center mt-4 space-x-4 text-xl">
         <RouterLink to="/">Home</RouterLink>
