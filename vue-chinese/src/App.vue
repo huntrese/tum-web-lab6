@@ -11,7 +11,7 @@
       <input
         type="checkbox"
         class="toggle theme-controller fixed right-4"
-        :checked="theme === 'forest'"
+        :checked="theme === 'sunset'"
         @change="toggleTheme"
       />
 
