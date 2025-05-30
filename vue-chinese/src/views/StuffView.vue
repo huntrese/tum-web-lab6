@@ -22,8 +22,17 @@
             </div>
 
             <div v-else>
+              <!-- Add Favorite Button -->
+              <div class="flex justify-end mb-4">
+                <button @click="toggleFavorite" class="btn btn-circle">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" :class="{ 'text-yellow-500': isFavorite }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                  </svg>
+                </button>
+              </div>
+
               <!-- Chinese Idiom -->
-              <div class="mb-6 text-center">
+              <div class="mb-6 text-center mt-80">
                 <p class="text-4xl font-serif mb-2">
                   <ChineseText :text="idiom.word" />
                 </p>
@@ -125,7 +134,8 @@ export default {
       localImages: [image1, image2, image3, image4, image5],
       idioms: [],
       ciDictionary: ciData || [],
-      translationServer: 'http://localhost:5000'
+      translationServer: 'http://localhost:5000',
+      isFavorite: false
     }
   },
   mounted() {
@@ -194,7 +204,7 @@ export default {
             this.idiom.englishDerivation = trans;
           })
         ]);
-
+        this.checkIfFavorite();
       } catch (error) {
         console.error('Error fetching idiom:', error);
       } finally {
@@ -237,7 +247,31 @@ export default {
     handleImageError() {
       // Fallback to another local image if there's an error
       this.idiom.image = this.localImages[Math.floor(Math.random() * this.localImages.length)];
-    }
+    },
+
+    toggleFavorite() {
+      const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+      const idiomData = { ...this.idiom, timestamp: Date.now() };
+      
+      if (this.isFavorite) {
+        // Remove from favorites
+        const index = favorites.findIndex(f => f.word === this.idiom.word);
+        if (index !== -1) {
+          favorites.splice(index, 1);
+        }
+      } else {
+        // Add to favorites
+        favorites.push(idiomData);
+      }
+      
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      this.isFavorite = !this.isFavorite;
+    },
+
+    checkIfFavorite() {
+      const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+      this.isFavorite = favorites.some(f => f.word === this.idiom.word);
+    },
   }
 }
 </script>

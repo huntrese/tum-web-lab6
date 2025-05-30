@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="p-4 px-8">
     <header class="flex flex-col items-center justify-center">
@@ -18,6 +16,7 @@
       <nav class="flex flex-row space-x-4">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/stuff">stuff</RouterLink>
+        <RouterLink to="/favorites">Favorites</RouterLink>
       </nav>
     </header>
 
