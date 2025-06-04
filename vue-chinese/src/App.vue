@@ -1,29 +1,34 @@
 <template>
-  <div class="p-4 px-8">
-    <header class="flex flex-col items-center justify-center">
-      <div class="flex flex-row justify-center space-x-4 w-full">
-        <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="40" height="40" />
-      </div>
+  <div class="min-h-screen bg-base-100">
+    <div class="p-4 px-8">
+      <header class="flex flex-col items-center justify-center">
+        <div class="flex flex-row justify-center space-x-4 w-full">
+          <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="40" height="40" />
+        </div>
 
-      <!-- Toggle Switch -->
-      <input
-        type="checkbox"
-        class="toggle theme-controller fixed right-4"
-        :checked="theme === 'sunset'"
-        @change="toggleTheme"
-      />
+        <!-- Toggle Switch -->
+        <input
+          type="checkbox"
+          class="toggle theme-controller fixed right-4"
+          :checked="theme === 'sunset'"
+          @change="toggleTheme"
+        />
 
-      <nav class="flex flex-row space-x-4">
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/stuff">stuff</RouterLink>
-        <RouterLink to="/favorites">Favorites</RouterLink>
-      </nav>
-    </header>
+        <nav class="flex flex-row space-x-4">
+          <RouterLink to="/">Home</RouterLink>
+          <RouterLink to="/stuff">stuff</RouterLink>
+          <RouterLink to="/favorites">Favorites</RouterLink>
+        </nav>
+      </header>
 
-    <RouterView />
+      <RouterView v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </RouterView>
+    </div>
   </div>
 </template>
-
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
@@ -49,3 +54,15 @@ function toggleTheme() {
   theme.value = theme.value === 'caramellatte' ? 'sunset' : 'caramellatte'
 }
 </script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

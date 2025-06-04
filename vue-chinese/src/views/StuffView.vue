@@ -1,12 +1,12 @@
 <template>
-  <main class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+  <main class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-base-200">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold">每日成语</h1>
-        <p class="text-lg">Daily Chinese Idioms</p>
+        <h1 class="text-3xl font-bold text-base-content">每日成语</h1>
+        <p class="text-lg text-base-content/70">Daily Chinese Idioms</p>
       </div>
 
-      <div class="rounded-xl shadow overflow-hidden transition-all duration-300 hover:shadow-md">
+      <div class="rounded-xl shadow overflow-hidden transition-all duration-300 hover:shadow-md bg-base-100">
         <!-- Idiom Display -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-0">
           <!-- Left Column - Image -->
@@ -18,14 +18,14 @@
           <!-- Right Column - Content -->
           <div class="md:col-span-2 p-6">
             <div v-if="loading" class="flex justify-center items-center h-64">
-              <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2"></div>
+              <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent"></div>
             </div>
 
             <div v-else>
               <!-- Add Favorite Button -->
               <div class="flex justify-end mb-4">
-                <button @click="toggleFavorite" class="btn btn-circle">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" :class="{ 'text-yellow-500': isFavorite }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button @click="toggleFavorite" class="btn btn-circle bg-base-200 border-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" :class="{ 'text-warning': isFavorite }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                   </svg>
                 </button>
@@ -33,52 +33,52 @@
 
               <!-- Chinese Idiom -->
               <div class="mb-6 text-center mt-80">
-                <p class="text-4xl font-serif mb-2">
+                <p class="text-4xl font-serif mb-2 text-accent">
                   <ChineseText :text="idiom.word" />
                 </p>
-                <p class="text-xl">{{ idiom.pinyin }}</p>
+                <p class="text-xl text-base-content/70">{{ idiom.pinyin }}</p>
               </div>
 
               <!-- Literal Translation -->
-              <div class="mb-6 p-4 rounded">
-                <h3 class="text-lg font-semibold mb-2">Literal Meaning</h3>
+              <div class="mb-6 p-4 rounded bg-base-200">
+                <h3 class="text-lg font-semibold mb-2 text-base-content">Literal Meaning</h3>
                 <p>
                   <ChineseText :text="idiom.literalTranslation" />
                 </p>
-                <p class="mt-1 italic">{{ idiom.englishLiteral }}</p>
+                <p class="mt-1 italic text-base-content/70">{{ idiom.englishLiteral }}</p>
               </div>
 
               <!-- Idiomatic Meaning -->
               <div class="mb-6">
-                <h3 class="text-lg font-semibold mb-2">Idiomatic Meaning</h3>
+                <h3 class="text-lg font-semibold mb-2 text-base-content">Idiomatic Meaning</h3>
                 <p>
                   <ChineseText :text="idiom.explanation" />
                 </p>
-                <p class="mt-1 italic">{{ idiom.englishExplanation }}</p>
+                <p class="mt-1 italic text-base-content/70">{{ idiom.englishExplanation }}</p>
               </div>
 
               <!-- Example -->
               <div class="mb-6 border-t pt-4" v-if="idiom.example">
-                <h3 class="text-lg font-semibold mb-2">Example Usage</h3>
+                <h3 class="text-lg font-semibold mb-2 text-base-content">Example Usage</h3>
                 <ChineseText :text="processExample(idiom.example, idiom.word)" />
                 
-                <p class="mt-1 italic">{{ idiom.englishExample }}</p>
+                <p class="mt-1 italic text-base-content/70">{{ idiom.englishExample }}</p>
               </div>
 
               <!-- Derivation -->
               <div class="mb-4 border-t pt-4" v-if="idiom.derivation">
-                <h3 class="text-lg font-semibold mb-2">Origin</h3>
+                <h3 class="text-lg font-semibold mb-2 text-base-content">Origin</h3>
                 <ChineseText :text="idiom.derivation" />
-                <p class="mt-1 italic">{{ idiom.englishDerivation }}</p>
+                <p class="mt-1 italic text-base-content/70">{{ idiom.englishDerivation }}</p>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Refresh Button -->
-        <div class="px-6 py-4 border-t flex justify-center">
+        <div class="px-6 py-4 border-t flex justify-center bg-base-200">
           <button @click="fetchIdiom"
-            class="inline-flex items-center px-6 py-3 border text-base font-medium rounded-md shadow-sm transition-colors">
+            class="inline-flex items-center px-6 py-3 border text-base font-medium rounded-md shadow-sm transition-colors bg-accent text-base-100 hover:bg-accent-focus">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd"
                 d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
@@ -90,7 +90,7 @@
       </div>
 
       <!-- Footer -->
-      <div class="mt-8 text-center text-sm">
+      <div class="mt-8 text-center text-sm text-base-content/60">
         <p>Explore the richness of Chinese culture through its colorful idioms.</p>
       </div>
     </div>
@@ -101,6 +101,7 @@
 import idiomsData from '@/assets/idiom.json';
 import ciData from '@/assets/ci.json';
 import ChineseText from '@/components/ChineseText.vue';
+import TranslationService from '@/services/translation.service';
 // Local image imports
 import image1 from '@/assets/images/idiom1.jpg';
 import image2 from '@/assets/images/idiom2.jpg';
@@ -134,7 +135,6 @@ export default {
       localImages: [image1, image2, image3, image4, image5],
       idioms: [],
       ciDictionary: ciData || [],
-      translationServer: 'http://localhost:5000',
       isFavorite: false
     }
   },
@@ -158,6 +158,19 @@ export default {
       return example.replace(/～/g, idiom);
     },
 
+    async translateText(text) {
+      if (!text) return '';
+
+      try {
+        // Get both translation and pinyin
+        const result = await TranslationService.translateToEnglish(text);
+        return result.translation || 'Translation failed';
+      } catch (error) {
+        console.error('Translation error:', error);
+        return 'Translation failed';
+      }
+    },
+
     async fetchIdiom() {
       this.loading = true;
 
@@ -167,7 +180,7 @@ export default {
         // Set basic data
         this.idiom = {
           word: randomIdiom.word,
-          pinyin: randomIdiom.pinyin,
+          pinyin: '',  // We'll fetch this from our service
           literalTranslation: randomIdiom.word,
           englishLiteral: '',
           explanation: randomIdiom.explanation,
@@ -178,6 +191,10 @@ export default {
           englishDerivation: '',
           image: this.getLocalImage(randomIdiom.word)
         };
+
+        // Get pinyin for the idiom
+        const pinyinResult = await TranslationService.getPinyin(randomIdiom.word);
+        this.idiom.pinyin = pinyinResult.pinyin;
 
         // Process example to include the actual idiom
         if (this.idiom.example) {
@@ -221,27 +238,6 @@ export default {
       }
       const index = Math.abs(hash) % this.localImages.length;
       return this.localImages[index];
-    },
-
-    async translateText(text) {
-      if (!text) return '';
-
-      try {
-        const response = await fetch(`${this.translationServer}/translate`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ text })
-        });
-
-        if (!response.ok) throw new Error('Translation failed');
-        const data = await response.json();
-        return data.translation || 'Translation failed';
-      } catch (error) {
-        console.error('Translation error:', error);
-        return 'Translation failed';
-      }
     },
 
     handleImageError() {

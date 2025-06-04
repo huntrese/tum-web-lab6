@@ -1,13 +1,13 @@
 <template>
-  <main class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+  <main class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-base-200">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold">收藏的成语</h1>
-        <p class="text-lg">Favorite Idioms</p>
+        <h1 class="text-3xl font-bold text-base-content">收藏的成语</h1>
+        <p class="text-lg text-base-content/70">Favorite Idioms</p>
       </div>
 
       <div v-if="favorites.length === 0" class="text-center py-8">
-        <p class="text-xl">No favorites yet</p>
+        <p class="text-xl text-base-content/70">No favorites yet</p>
         <RouterLink to="/stuff" class="btn btn-primary mt-4">
           Discover Idioms
         </RouterLink>
@@ -20,23 +20,23 @@
             <!-- Header with expand/collapse -->
             <div class="flex justify-between items-start">
               <div class="flex-1">
-                <h2 class="card-title text-2xl mb-2">
+                <h2 class="card-title text-2xl mb-2 text-accent">
                   <ChineseText :text="idiom.word" />
                 </h2>
-                <p class="text-lg opacity-75">{{ idiom.pinyin }}</p>
+                <p class="text-lg opacity-75 text-base-content/70">{{ idiom.pinyin }}</p>
               </div>
               
               <div class="flex items-center gap-2">
-                <span class="text-sm opacity-60">
+                <span class="text-sm opacity-60 text-base-content/60">
                   {{ formatDate(idiom.timestamp) }}
                 </span>
-                <button @click="toggleExpand(idiom.word)" class="btn btn-circle btn-sm">
+                <button @click="toggleExpand(idiom.word)" class="btn btn-circle btn-sm bg-base-200 border-none">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" :class="{ 'rotate-180': expandedItems.includes(idiom.word) }" 
                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-                <button @click="removeFavorite(idiom)" class="btn btn-circle btn-sm btn-error">
+                <button @click="removeFavorite(idiom)" class="btn btn-circle btn-sm bg-error text-base-100 border-none">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -51,35 +51,35 @@
               
               <!-- Literal Translation -->
               <div class="space-y-1">
-                <h3 class="font-semibold">Literal Meaning</h3>
-                <p class="opacity-75">{{ idiom.englishLiteral }}</p>
+                <h3 class="font-semibold text-base-content">Literal Meaning</h3>
+                <p class="opacity-75 text-base-content/70">{{ idiom.englishLiteral }}</p>
               </div>
 
               <!-- Idiomatic Meaning -->
               <div class="space-y-1">
-                <h3 class="font-semibold">Idiomatic Meaning</h3>
+                <h3 class="font-semibold text-base-content">Idiomatic Meaning</h3>
                 <p>
                   <ChineseText :text="idiom.explanation" />
                 </p>
-                <p class="opacity-75">{{ idiom.englishExplanation }}</p>
+                <p class="opacity-75 text-base-content/70">{{ idiom.englishExplanation }}</p>
               </div>
 
               <!-- Example -->
               <div v-if="idiom.example" class="space-y-1">
-                <h3 class="font-semibold">Example Usage</h3>
+                <h3 class="font-semibold text-base-content">Example Usage</h3>
                 <p>
                   <ChineseText :text="idiom.example" />
                 </p>
-                <p class="opacity-75">{{ idiom.englishExample }}</p>
+                <p class="opacity-75 text-base-content/70">{{ idiom.englishExample }}</p>
               </div>
 
               <!-- Origin -->
               <div v-if="idiom.derivation" class="space-y-1">
-                <h3 class="font-semibold">Origin</h3>
+                <h3 class="font-semibold text-base-content">Origin</h3>
                 <p>
                   <ChineseText :text="idiom.derivation" />
                 </p>
-                <p class="opacity-75">{{ idiom.englishDerivation }}</p>
+                <p class="opacity-75 text-base-content/70">{{ idiom.englishDerivation }}</p>
               </div>
             </div>
           </div>
