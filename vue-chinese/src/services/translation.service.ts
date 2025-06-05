@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { TranslationResponse, PinyinResponse } from '@/types/translation';
 
-const API_URL = 'http://localhost:8000/api';
+const API_URL = 'https://juansoft.online/api';
 
 class TranslationService {
   async translateToChinese(text: string): Promise<TranslationResponse> {

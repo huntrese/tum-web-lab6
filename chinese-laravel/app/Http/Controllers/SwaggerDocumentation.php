@@ -14,7 +14,7 @@ use OpenApi\Annotations as OA;
  *     ),
  *     @OA\Server(
  *         description="Local API server",
- *         url="http://localhost:8000"
+ *         url="https://juansoft.online"
  *     ),
  *     @OA\Components(
  *         @OA\SecurityScheme(

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { User } from '@/types/user';
 
-const API_URL = 'http://localhost:8000/api/';
+const API_URL = 'https://juansoft.online/api/';
 
 class AuthService {
   async login(email: string, password: string): Promise<User> {
