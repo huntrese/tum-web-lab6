@@ -1,37 +1,37 @@
 <template>
     <div
         class="absolute bottom-full z-999 left-1/2 bg-base-100 rounded-lg transform -translate-x-1/2 hidden group-hover:block w-96 max-w-md p-2">
-        <div class="shadow-xl rounded-lg border overflow-hidden max-h-96 overflow-y-auto text-info">
+        <div class="shadow-xl rounded-lg border overflow-hidden max-h-96 overflow-y-auto text-accent">
             <!-- Header -->
-            <div class="p-3 sticky top-0 border-b z-10">
+            <div class="p-3 sticky top-0 border-b z-10 bg-base-100">
                 <div class="flex justify-between items-start">
                     <div>
-                        <h3 class="text-lg font-bold">{{ char }}</h3>
-                        <p v-if="data && data.strokes && data.radicals" class="text-sm">
+                        <h3 class="text-lg font-bold text-accent">{{ char }}</h3>
+                        <p v-if="data && data.strokes && data.radicals" class="text-sm text-base-content/70">
                             {{ data.strokes }} strokes · Radical: {{ data.radicals }}
                         </p>
                     </div>
-                    <span class="text-sm opacity-75">{{ pinyin }}</span>
+                    <span class="text-sm opacity-75 text-base-content/60">{{ pinyin }}</span>
                 </div>
             </div>
 
             <!-- Loading State -->
             <div v-if="loading" class="flex justify-center py-4">
-                <div class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500"></div>
+                <div class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-accent"></div>
             </div>
 
             <!-- Error State -->
-            <div v-else-if="error" class="p-3 text-sm text-red-500">
+            <div v-else-if="error" class="p-3 text-sm text-error">
                 {{ error }}
             </div>
 
             <!-- Content with Tabs -->
-            <div v-else-if="data" class="text-sm">
+            <div v-else-if="data" class="text-sm text-base-content">
                 <!-- Tab Navigation -->
                 <div class="flex border-b">
                     <button v-for="(tab, index) in availableTabs" :key="index" @click="activeTab = tab.id"
                         class="px-3 py-2 text-sm font-medium"
-                        :class="activeTab === tab.id ? 'border-b-2 border-accent-500 text-accent' : ''">
+                        :class="activeTab === tab.id ? 'border-b-2 border-accent text-accent' : 'text-base-content/70'">
                         {{ tab.label }}
                     </button>
                 </div>
@@ -55,10 +55,10 @@
                     <!-- Pronunciation Tab -->
                     <div v-if="activeTab === 'pronunciation'" class="space-y-3">
                         <div v-if="hasMultiplePronunciations">
-                            <h4 class="font-semibold text-blue-700 mb-2">Other Pronunciations</h4>
+                            <h4 class="font-semibold text-accent mb-2">Other Pronunciations</h4>
                             <div class="flex flex-wrap gap-2">
                                 <span v-for="(p, index) in otherPronunciations" :key="index"
-                                    class="px-2 py-1 rounded text-sm">
+                                    class="px-2 py-1 rounded text-sm bg-base-200 text-base-content">
                                     {{ p }}
                                 </span>
                             </div>
@@ -72,9 +72,9 @@
                     <div v-if="activeTab === 'translation'" class="space-y-3">
                         <div v-if="translatedContent.length > 0">
                             <div v-for="(item, index) in translatedContent" :key="index" class="mb-3">
-                                <div class="font-medium ">{{ item.original }}</div>
-                                <div class="text-xs mb-1">{{ item.pinyin }}</div>
-                                <div class="">{{ item.translation }}</div>
+                                <div class="font-medium text-accent">{{ item.original }}</div>
+                                <div class="text-xs mb-1 text-base-content/70">{{ item.pinyin }}</div>
+                                <div class="text-base-content">{{ item.translation }}</div>
                             </div>
                         </div>
                         <div v-else class="text-warning italic">
